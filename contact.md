@@ -8,5 +8,5 @@
 
 Thanks also to Jeroen Bransen for his invaluable insights from running the previous iteration of ICFPC.
 
-To contact the organisers, for now please contact Liam O'Connor, details [here](https://liamoc.net/contact.html). In future, we will have a Discord Server, Bluesky account and dedicated email inbox for the organising committee.
+We have a presence on [X](https://x.com/icfpcontest2025) and [Bluesky](https://bsky.app/profile/icfpcontest.bsky.social) and will shortly have a Discord server available.  Failing this, feel free to contact Liam O'Connor, details [here](https://liamoc.net/contact.html). 
 
