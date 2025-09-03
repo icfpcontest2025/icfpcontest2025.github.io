@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="css/paper.min.css"
+      />
+<link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="ICFPC 2025" />
+    <link rel="stylesheet" href="css/icfpc2024.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="icfpc2024.904e2e6c971972d9b93c.js"></script>
+    <title>ICFP contest 2025</title>
+  </head>
+  <body style="background:#fefbf1;">
+    <nav class="fixed split-nav" >
+      <div class="nav-brand">
+  <h3><a href="/"><img src="img/logo.png" style="width:140px;" class="no-border" /></a></h3>
+      </div>
+      <div class="collapsible">
+  <input id="collapsible1" type="checkbox" name="collapsible1">
+  <label for="collapsible1">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
+  </label>
+  <div class="collapsible-body">
+    <ul class="inline">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="rules.html">Rules</a></li>
+            <li><a href="prizes.html">Prizes</a></li>
+            <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+      </div>
+    </nav>
+    <div class="paper container" style="margin-top:5rem;">
+<h1>Scoreboard</h1>
+    <div class="afterload" id="idInputContainer">
+      <label for="idInput">Enter your <code>id</code> (from <code>/register</code>) to see your scores:</label>
+      <input type="text" id="idInput" style="display:inline" placeholder="Enter your ID" />
+      <button id="submitId">Submit</button>
+    </div>
+    <div id=output>Loading..</div>
+    <div class="afterload">Click a problem name above to view a problem-specific leaderboard.</div>
+    <hr/>
+    <h3 id="pageTitle">Leaderboard</h1>
+    <a id="backLink" style="display:none">Back to global leaderboard</a>
+    <!-- Table to display leaderboard data -->
+    <div style="margin-top:10px;margin-bottom:10px;">
+      Leaderboards are updated every 5 minutes for most of the competition. To heighten suspense, public leaderboards are not updated in the period shortly before and after the lightning round finishes, and are not updated in the last 2 hours of the competition.
+    </div>
+    <table border="1" id="leaderboardTable">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Team Name</th>
+                <th>Programming Language</th>
+                <th id="scoreColumnHeader">Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            <td colspan=4> Loading </td>
+            <!-- Data will be inserted here -->
+        </tbody>
+    </table>
+    
+   <script>
+     (async function () {
+       const baseSelectUrl = 'https://31pwr5t6ij.execute-api.eu-west-2.amazonaws.com/select';
+       const baseScoreUrl = 'https://31pwr5t6ij.execute-api.eu-west-2.amazonaws.com/';
+       const params = new URLSearchParams(window.location.search);
+       const debugValue = params.get('debug');
+       const idValue = params.get('id');
+       const selectedProblem = params.get('problem');
+       const outputDiv = document.getElementById('output');
+   
+       // Handle ID input box and submit button
+       const idInput = document.getElementById('idInput');
+       const submitButton = document.getElementById('submitId');
+       if (selectedProblem && selectedProblem != "global") {
+         document.getElementById("backLink").style = "display:inline;"
+       }
+       const newParams = new URLSearchParams();
+       newParams.set('problem', "global");
+       if (debugValue) newParams.set('debug', debugValue);
+       if (idValue) newParams.set('id', idValue);
+       document.getElementById("backLink").href = `${window.location.pathname}?${newParams.toString()}`;
+       
+       if (idValue) {
+         idInput.value = idValue;
+       }
+   
+       submitButton.addEventListener('click', () => {
+         const newId = idInput.value.trim();
+         const newParams = new URLSearchParams(window.location.search);
+   
+         if (newId) {
+           newParams.set('id', newId);
+         } else {
+           newParams.delete('id');
+         }
+   
+         if (debugValue) {
+           newParams.set('debug', debugValue);
+         }
+   
+         if (selectedProblem) {
+           newParams.set('problem', selectedProblem);
+         }
+   
+         window.location.search = newParams.toString();
+       });
+   
+       // Construct /select URL
+       let selectUrl = baseSelectUrl;
+       if (debugValue) {
+         selectUrl += '?' + encodeURIComponent(debugValue);
+       }
+   
+       let scoreMap = {};
+   
+       // Fetch score map if ID is provided
+       if (idValue) {
+         const scoreParams = new URLSearchParams();
+         scoreParams.set('id', idValue);
+         if (debugValue) {
+           scoreParams.set('debug', debugValue);
+         }
+   
+         const scoreUrl = baseScoreUrl + '?' + scoreParams.toString();
+   
+         try {
+           const scoreResponse = await fetch(scoreUrl);
+           scoreMap = await scoreResponse.json();
+         } catch (e) {
+           console.error('Failed to fetch scores:', e);
+         }
+       }
+   
+       try {
+         const response = await fetch(selectUrl);
+         const text = await response.text();
+   
+         try {
+           const data = JSON.parse(text);
+           if (!Array.isArray(data)) throw new Error("Unexpected JSON format");
+   
+           // Create table
+           const table = document.createElement('table');
+           table.border = "1";
+           
+           const headerRow = table.insertRow();
+           
+           function insertHeaderCell(text) {
+             const th = document.createElement('th');
+             th.textContent = text;
+             th.scope = 'col';
+             headerRow.appendChild(th);
+           }
+           
+           insertHeaderCell("Problem");
+           insertHeaderCell("Size");
+           if (idValue) {
+             insertHeaderCell("Score");
+           }
+   
+           data.forEach(item => {
+             const row = table.insertRow();
+   
+             // Highlight if this is the selected problem
+             if (selectedProblem === item.problem) {
+               row.classList.add('highlight');
+             }
+   
+             const link = document.createElement('a');
+             link.textContent = item.problem;
+   
+             const newParams = new URLSearchParams();
+             newParams.set('problem', item.problem);
+             if (debugValue) newParams.set('debug', debugValue);
+             if (idValue) newParams.set('id', idValue);
+             link.href = `${window.location.pathname}?${newParams.toString()}`;
+   
+             const problemCell = row.insertCell();
+             problemCell.appendChild(link);
+   
+             const sizeCell = row.insertCell();
+             sizeCell.textContent = item.size;
+   
+             if (idValue) {
+               const scoreCell = row.insertCell();
+               scoreCell.textContent = scoreMap[item.problem] ?? '-';
+             }
+           });
+   
+           outputDiv.innerHTML = '';
+           outputDiv.appendChild(table);
+           document.querySelectorAll('.afterload').forEach(el => el.classList.remove('afterload'));
+         } catch (err) {
+           // Not JSON — treat as plain string
+           outputDiv.textContent = "The contest has not yet begun.";
+         }
+       } catch (error) {
+         outputDiv.textContent = 'Error fetching data: ' + error.message;
+       }
+     })();
+   </script>
+       <script>
+        // Get the "problem" parameter from the query string
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Fetch leaderboard data for the given problem name
+        function fetchLeaderboardData(problemName) {
+            if (!problemName) {
+                //alert("Problem name not found in query string!");
+                return;
+            }
+
+            const url = `https://31pwr5t6ij.execute-api.eu-west-2.amazonaws.com/leaderboard/${problemName}`;
+
+            // Make the GET request to the API
+            fetch(url)
+                .then(response => response.json())  // Parse the JSON response
+                .then(data => {
+                    // Call the function to populate the table with the response data
+                    populateLeaderboardTable(data, problemName);
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                    //alert("There was an error fetching the leaderboard data.");
+                });
+        }
+
+        // Populate the table with the leaderboard data
+        function populateLeaderboardTable(data, problemName) {
+            const tableBody = document.getElementById("leaderboardTable").getElementsByTagName("tbody")[0];
+            tableBody.innerHTML = "";  // Clear existing rows
+
+            // Special handling for "global" problem
+            if (problemName === "global") {
+                document.getElementById("pageTitle").textContent = "Leaderboard";
+                document.getElementById("scoreColumnHeader").textContent = "Points";
+                
+                // Sort the results from largest to smallest based on the score
+                data.sort((a, b) => (b.score || 0) - (a.score || 0));
+            }
+
+            let currentRank = 1;
+            let previousScore = null;
+            let displayRank = 1;
+            
+            data.forEach((entry, index) => {
+              if (entry.score != null) {
+                const row = tableBody.insertRow();
+            
+                // Compare with previous score to determine rank
+                const currentScore = entry.score || 0;
+                if (previousScore !== null && currentScore !== previousScore) {
+                    displayRank = currentRank;
+                }
+            
+                // Insert rank cell
+                const rankCell = row.insertCell(0);
+                rankCell.textContent = displayRank;
+            
+                // Other cells
+                const teamNameCell = row.insertCell(1);
+                const teamPlCell = row.insertCell(2);
+                const scoreCell = row.insertCell(3);
+            
+                teamNameCell.textContent = entry.teamName || "<no name>";
+                teamPlCell.textContent = entry.teamPl || "<no pl>";
+                scoreCell.textContent = entry.score !== null ? entry.score : "<no submission>";
+            
+                previousScore = currentScore;
+                currentRank++;
+              }
+            });
+        }
+
+        // Main logic to run on page load
+        window.onload = function() {
+            // Read the 'problem' query parameter from the URL
+            var problemName = getQueryParameter("problem");
+            if (!problemName) {
+              problemName = "global"
+            }
+            // Set the title of the page based on the problem name
+            if (problemName && problemName !== "global") {
+                document.getElementById("pageTitle").textContent = `Leaderboard for ${problemName}`;
+            }
+
+            // Fetch and display the leaderboard data for the problem
+            fetchLeaderboardData(problemName);
+        };
+    </script>
+<img src="img/sketch.png" class="no-border" style="margin-left:auto;margin-right:auto;width:360px"/>
+        </div>
+      </body>
+    </html>
+
