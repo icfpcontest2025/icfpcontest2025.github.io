@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>-</title>
+  <link
+  rel="stylesheet"
+  href="css/paper.min.css"
+  />
+      <link rel="stylesheet" href="css/icfpc2024.css" />
+  <style>
+    html {
+      line-height: 1.5;
+      /*font-family: Georgia, serif;*/
+      font-size: 20px;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+
+<style>
+  body { line-height: 1.5; max-width: 48rem; margin: auto; padding: 2rem; text-align: justify; }
+  h1, h2, h3, h4 { font-family: IM FELL DW Pica SC;
+    letter-spacing: 7px; font-weight: bold; margin-top: 2rem; }
+  h1 { font-size: 1.8rem; text-align: center; margin-bottom: 1.5rem; }
+  h2 { font-size: 1.4rem; border-bottom: 1px solid #aaa; padding-bottom: 0.3rem; }
+  h3 { font-size: 1.2rem; }
+  p { margin: 1rem 0; }
+  img {border:0;}
+  table { border-collapse: collapse; margin: 1rem auto; }
+  th, td { border: 1px solid #999; padding: 0.4rem 0.8rem; }
+  code, pre { background: #f6f6f6; padding: 0.2rem 0.4rem; border-radius: 4px; }
+  ul, ol { margin: 1rem 2rem; }
+  blockquote { border-left: 3px solid #aaa; padding-left: 1rem; color: #555; margin: 1rem 0; }
+  img { max-width: 100%; display: block; margin: auto; }
+  math, .math { font-size: 1.05em; }
+  .top_header{
+    text-align:center;
+    font-size:32pt;
+    margin-top:40px;
+  }
+  .top_subtitle{
+    text-align:center;
+    font-size:18pt;
+  }
+</style>
+
+</head>
+<body>
+  <img src="header.png"/>
+  <div class="top_header">The Name of the Binding</div>
+  <div class="top_subtitle">ICFP Programming Contest 2025</div>
+  <h1 class="unnumbered" id="top">TASK DESCRIPTION</h1> 
+<p style="font-style:italic;">
+  Contestants are tasked with constructing a map of a labyrinthine library by collecting information during repeated exploratory expeditions. This is version 1.0 — see the changelog on the task page.</p>
+<h2 class="unnumbered" id="background">BACKGROUND</h2>
+<div class="spacing">
+<p> <em>In which our characters, Adso &amp; William,
+encounter the library at the Ædificium, and seek to uncover the secrets
+therein.</em></p>
+</div>
+<p><img src="sketch.jpg" style="width:45.0%" alt="image" /> <span
+class="lettrine">A</span><span class="smallcaps"></span><span
+class="smallcaps">dso</span> of Milner and his master, William of
+Backus, have at last arrived at the famed monastery of St. Kleene, under
+the stewardship of the monks of the Holy Order of Evaluation, home of
+the world-renowned Library of Lambdas, where it is said that all of the
+world’s functions may be found.</p>
+<p>The library makes up the greatest part of the Ædificium: the large,
+imposing, fortress-like building casting a long shadow over the
+cloisters in the setting sun. It is closely guarded by the Abbot and his
+librarian, Alonzo of Curry, so William and Adso can only gain access to
+the library via skulduggery, sneaking into the Ædificium when the monks
+and nuns are busy at the International Conference on Functional
+Programming.</p>
+<p>The Ædificium is huge, and only Alonzo and the Abbot know all of its
+chambers and passages. Some even say that a curse lies on the library,
+and that any who enter unbidden will never find their way out again.
+William, a learned scholar of great intuition and logic, dismisses such
+superstitions out of hand, steadfast in his determination to uncover the
+secrets of the library. He exclaims in the fashion of his master,
+Hilbert, “<em>Wir müssen wissen, wir werden wissen!</em>”</p>
+<p>Adso, ever doubtful and unsure, inquires of his master, “How shall we
+know where to go without the guidance of the librarian? We do not even
+have a map!"</p>
+<p>William, a devious glint behind his eyes, replies, “Well, my dear
+Adso, we shall have to make one.”<br />
+</p>
+<h2 class="unnumbered" id="the-ædificium">THE ÆDIFICIUM</h2>
+<div class="spacing">
+<p> <em>In which the structure of the Library is
+described, as well as the nature of the task before William &amp;
+Adso.</em></p>
+</div>
+<p><span class="lettrine">T</span><span class="smallcaps"></span><span
+class="smallcaps">he</span> Ædificium is comprised of a number of
+hexagonal rooms, each side of which has a door, labelled with a number
+1–6. Through each door lies a passage to another room. The rooms
+themselves are also labelled, but the label is in a language that Adso
+cannot read. William understands the language, but with his failing
+eyesight, he can only discern the first two bits of the label. More than
+one room may have the same label. Passages may lead to the same room
+from which they started — or even the same door.</p>
+<div class="center">
+<p><img src="aedificium.png" style="width:45.0%" alt="image" />
+<center><em>An example of a 4-room Ædificium.</em></center><br />
+</p>
+</div>
+<p>To avoid getting lost, Adso &amp; William must devise a <em>route
+plan</em> before entering the library. A route plan consists of a series
+of numbers 0–5, indicating the sequence of doors through which they plan
+to travel, starting from the initial room. The route plans always start
+from the same room.</p>
+<p>As they travel through the library according to their route plan,
+Adso will record the 2-bit integers that William reads from the label of
+each room. Thus, after executing a route plan of length <span
+class="math inline"><em>x</em></span>, Adso will have a record
+consisting of <span class="math inline"><em>x</em></span> 2-bit
+integers.</p>
+<p>The task before Adso &amp; William is to construct a series of route
+plans such that they gain the information necessary to construct an
+accurate map of the library, in the form of an undirected graph, using
+as few expeditions into the library as possible.<br />
+</p>
+<h2 class="unnumbered" id="protocol">PROTOCOL</h2>
+<div class="spacing">
+<p> <em>In which the format of route plans and Adso’s
+records are specified, as well as the representation of the
+map.</em></p>
+</div>
+<p><span class="lettrine">Q</span><span class="smallcaps"></span><span
+class="smallcaps">ueries</span> are made to the Ædificium by making an
+HTTP request to the server at the URL:</p>
+<div class="center">
+<p><a href="https://31pwr5t6ij.execute-api.eu-west-2.amazonaws.com/"
+class="uri">https://31pwr5t6ij.execute-api.eu-west-2.amazonaws.com/</a></p>
+</div>
+<p><strong>POST <code>/register</code></strong> <span
+class="math inline">  </span> <em>registers a new team.</em><br />
+<span class="smallcaps">Request Body</span>:<br />
+</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;name&quot;</span><span class="op">:</span> <span class="dt">string</span><span class="op">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;pl&quot;</span><span class="op">:</span> <span class="dt">string</span><span class="op">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;email&quot;</span><span class="op">:</span> <span class="dt">string</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><span class="smallcaps">Response Body</span>:<br />
+</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;id&quot;</span><span class="op">:</span> <span class="dt">string</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>The <code>id</code> given in the response is <strong>secret</strong>
+and used to identify your team in future requests. Remember it but do
+not disclose it publicly!</p>
+<p><strong>POST <code>/select</code></strong> <span
+class="math inline">  </span> <em>selects a problem to solve.</em><br />
+<span class="smallcaps">Request Body</span>:<br />
+</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;id&quot;</span><span class="op">:</span> <span class="dt">string</span><span class="op">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;problemName&quot;</span><span class="op">:</span> <span class="dt">string</span><span class="op">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><span class="smallcaps">Response Body</span>:<br />
+</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;problemName&quot;</span><span class="op">:</span> <span class="dt">string</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>The <code>id</code> should be exactly the same string produced by
+<code>/register</code>. The <code>problemName</code> may be any of the
+available problems, the full list of which is available on the <a
+href="https://icfpcontest2025.github.io/aedificium.html">leaderboard
+page</a>. Each problem has a specified number of rooms, but the exact
+layout of the map is randomly generated each time a problem is
+selected.</p>
+<p>For testing purposes, a simple three-room labyrinth, small enough to
+be solvable by hand, may also be selected by using the problem name
+<code>"probatio"</code>.</p>
+<p>Note if a problem is already selected, POSTing to
+<code>/select</code> will discard the old problem and generate a new one
+to solve.</p>
+<p><strong>POST <code>/explore</code></strong> <span
+class="math inline">  </span> <em>explores the ædificium.</em><br />
+<span class="smallcaps">Request Body</span>:<br />
+</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;id&quot;</span><span class="op">:</span> <span class="dt">string</span><span class="op">,</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;plans&quot;</span><span class="op">:</span> [<span class="dt">string</span>]<span class="op">,</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><span class="smallcaps">Response Body</span>:<br />
+</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;results&quot;</span><span class="op">:</span> [[int]]<span class="op">,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;queryCount&quot;</span><span class="op">:</span> int</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Only POST to <code>/explore</code> after selecting a problem with
+<code>/select</code>.</p>
+<p>The <code>id</code> should be exactly the same string produced by
+<code>/register</code>. The <code>plans</code> field should consist of a
+list of route plans, each represented as a string of digits
+<code>0</code>–<code>5</code>, specifying the numbers of each door to
+enter. For example, the string <code>"0325"</code> is the route plan
+that first enters door <code>0</code>, then <code>3</code>, then
+<code>2</code>, then <code>5</code>.</p>
+<p>The <code>results</code> field consists of a list of Adso’s records,
+one for each route plan submitted. Each record is a list of integer
+values — the 2-bit integer values observed by William upon entering each
+room. The <code>queryCount</code> field contains the total number of
+expeditions made into the Ædificium so far. Remember, Adso and William
+want to make as few expeditions into the library as possible, so guesses
+made with a low <code>queryCount</code> will rank higher in the
+leaderboards.</p>
+<p><span class="smallcaps">Note</span>: We allow multiple route plans to
+be submitted in a single HTTP request. This reduces our server costs, so
+to incentivise contestants batching their route plans, an additional
+one-point <code>queryCount</code> penalty applies per
+<code>/explore</code> request made.</p>
+<p><strong>POST <code>/guess</code></strong> <span
+class="math inline">  </span> <em>submit a candidate map.</em><br />
+<span class="smallcaps">Request Body</span>:<br />
+</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;id&quot;</span><span class="op">:</span> <span class="dt">string</span><span class="op">,</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;map&quot;</span><span class="op">:</span> {</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;rooms&quot;</span><span class="op">:</span> [int]<span class="op">,</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;startingRoom&quot;</span><span class="op">:</span> int<span class="op">,</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;connections&quot;</span><span class="op">:</span> [</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>      {</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;from&quot;</span><span class="op">:</span> { </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;room&quot;</span><span class="op">:</span> int<span class="op">,</span> </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;door&quot;</span><span class="op">:</span> int </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        }<span class="op">,</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;to&quot;</span><span class="op">:</span> { </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;room&quot;</span><span class="op">:</span> int<span class="op">,</span> </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;door&quot;</span><span class="op">:</span> int </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><span class="smallcaps">Response Body</span>:<br />
+</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;correct&quot;</span><span class="op">:</span> <span class="dt">boolean</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Only POST to <code>/guess</code> after selecting a problem with
+<code>/select</code>.</p>
+<p>The <code>id</code> should be exactly the same string produced by
+<code>/register</code>. The <code>map</code> field contains a
+description of the layout of the library. The <code>rooms</code> field
+of this description is a list of the 2-bit integer labels read by
+William, one per room. Rooms are identified by their index into this
+list. The <code>startingRoom</code> field specifies the index of the
+initial room. The <code>connections</code> field contains a list of
+objects that specify how each room is connected, where the
+<code>room</code> fields specify the index of a room and the
+<code>door</code> field specifies a door number,
+<code>0</code>–<code>5</code>. Note that the graph constructed is
+undirected, so if one has already connected, say, <code>from</code> door
+3 of room 5 <code>to</code> door 0 of room 2, there is no need to
+connect <code>from</code> door 0 of room 2 <code>to</code> door 3 of
+room 5 — this connection will already exist.</p>
+<p>The field <code>correct</code> is <code>true</code> iff the submitted
+map is <em>equivalent</em> to the map generated when
+<code>/select</code> was invoked. By <em>equivalent</em>, we mean that
+they have the same number of rooms, and that they are indistinguishable
+by any route plan — if there is no route plan that demonstrates the
+difference between two maps of the same size, they are considered
+equivalent.</p>
+<p>If a correct map is submitted, if the <code>queryCount</code> for
+your team is an improvement on your previous score for the currently
+selected problem, then your score is updated.</p>
+<p>Regardless of if the submitted map is correct or not, <em>the problem
+will be deselected</em> and the library cleared when <code>/guess</code>
+is invoked. This means that, if your guess was incorrect, you will have
+to start again on a new map with <code>/select</code>.<br />
+</p>
+<h2 class="unnumbered" id="scoring">SCORING</h2>
+<div class="spacing">
+<p> <em>In which the criteria by which entries are
+evaluated are given, along with pointers to global scoreboards.</em></p>
+</div>
+<p><span class="lettrine">G</span><span class="smallcaps"></span><span
+class="smallcaps">rading</span> of correct maps is based on the
+<em>efficiency</em> with which they were produced: Specifically, the
+amount of expeditions required to produce the graph.</p>
+<p>Each team is ranked on the local leaderboard for each problem, with
+the team that required the fewest expeditions to correctly generate the
+map ranked first, and all teams that have not (yet) submitted a correct
+solution to that problem ranked equal last.</p>
+<div class="wrapfigure">
+<p><img src="borda.png.jpg"
+style="width:20.0%" alt="image" /></p>
+</div>
+<p>The <a
+href="https://icfpcontest2025.github.io/aedificium.html">global
+leaderboard</a> is computed using the Borda count method, similar to
+last year’s contest. For each problem, each team is given one point for
+every other team that places strictly worse in the rankings. The team
+that has the most points across all problems is ranked first in the
+global leaderboard. An important property of this system is that
+absolute scores for a problem do not matter — only the relative
+order.</p>
+<p>The leaderboards are updated every few minutes throughout most of the
+contest, however they are temporarily frozen two hours before the end of
+the lightning round and also in the last two hours of the contest, to
+add to the suspense.<br />
+</p>
+<h2 class="unnumbered" id="submission">SUBMISSION</h2>
+<div class="spacing">
+<p> <em>In which the method of participation and entry
+submission is described, as well as the dates during which this is
+available.</em></p>
+</div>
+<p><span class="lettrine">T</span><span class="smallcaps"></span><span
+class="smallcaps">o</span> be considered for prizes, your team must
+submit their code. This is accomplished by the following Google form.
+Include your <code>id</code> from <code>/register</code> and a URL at
+which your code can be accessed (for example, a Git repository). Don’t
+make your code public until after the contest.</p>
+<div class="center">
+<p><a href="https://forms.gle/M5SNTamHvoc6zWHq7"
+class="uri">https://forms.gle/M5SNTamHvoc6zWHq7</a></p>
+</div>
+<p>This form closes 3 hours after the end of the contest. It is not
+necessary to make a separate submission for the lightning round, but
+please include a README file indicating which parts are from the first
+24 hours.</p>
+<p>Note that we also hand out a “jury prize”, so being on top of the
+scoreboard is not required to win (but it is a recommended way of
+winning).</p>
+</body>
+</html>
